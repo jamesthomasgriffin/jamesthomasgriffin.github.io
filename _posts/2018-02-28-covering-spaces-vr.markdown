@@ -51,3 +51,9 @@ As the participant moves around in the real world space we can keep track of the
 What would this look like?  Well suppose our virtual world consists of a single room with a pillar in the middle.  Looking left round the pillar we would see a different point than if we looked to the right round the pillar.
 
 ![An eagle and a lion, absolutely not a mythical creature!]({{ "/assets/griffin_pillar.png" | absolute_url }}){: width="50%" height="50%" class="img-responsive"}
+
+### Example - Asteroids vs Zelda: Link's Awakening
+
+Consider the game asteroids, when the ship exits the screen on the right it reappears on the left, similarly if it leaves the bottom it will reappear at the top.  Mathematically the ship exists on a **torus** formed by identifying opposite pairs of edges.
+Let's compare this with Zelda: Link's Awakening.  Similarly when our character Link leaves the screen on the right, he reappears on the left.  So in terms of screen-space the space Link resides in is the same space as Asteroids.  But it's not that simple, when Link leaves the screen on the right, he does reappear on the left, but now the screen displays the room to the right.
+The full world Link is exploring is the plane that we are all used to, however in its implementation there's really a covering space.  The virtual world is a covering space of the screen.
