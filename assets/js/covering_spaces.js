@@ -60,11 +60,11 @@ function Coverings() {
   var PuncturedPlane = Object.create(GenericCovering);
   PuncturedPlane.init = function(x, y, m) {
     this.px = x; this.py = y;
-    m = 2 * m;
     this.m = m;
     if (m == undefined) {
       this.modm = function (n) { return n; }
     } else {
+      m = 2 * m;
       this.modm = function (n) {
         n = n % m;
         return n >= 0 ? n : n + m;

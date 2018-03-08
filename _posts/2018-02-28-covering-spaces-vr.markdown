@@ -78,6 +78,8 @@ Now draw a line from the centre point to an outer edge, and call this line \\(L\
 So the lifted path joins \\((p, n)\\) to \\((p', n)\\).
 However if the path passes through the line \\(L\\) in an anti-clockwise direction then increment the label by 1.  If it passes through \\(L\\) in a clockwise direction then increment it by minus 1.
 
+{% include mouse_tracker.html width="400" height="400" %}
+
 ### The geometry of covering spaces
 
 The path lifting property means that the local geometry of a covering space is identical to the local geometry of the base space, so there is no new local geometry.  In the context of virtual worlds we want to know how to render the virtual world, so we are interested in how light rays travel, i.e. in the geodesics.  By the path lifting property the geodesics (when they exist) are lifts of geodesics in the base space.  And since the real world has a Euclidean geometry these are just straight lines.

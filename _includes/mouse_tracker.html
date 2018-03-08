@@ -1,19 +1,16 @@
-<!doctype html>
-<html>
-<head>
-  <title>Demo of covering spaces</title>
-  <script src="covering_spaces.js"></script>
-  <script src="mouse_tracker.js"></script>
-  <style>
-    canvas {
-      border: 1px;
-      border-style: solid;
-    }
-  </style>
-</head>
-<body>
-  <div>
-    <canvas id="baseSpace" width="400" height="400"/>
-  </div>
-</body>
-</html>
+<script src="/assets/js/covering_spaces.js"></script>
+<script src="/assets/js/mouse_tracker.js"></script>
+<style>
+  #baseSpace {
+    border: 1px;
+    border-style: solid;
+  }
+  #baseSpaceContainer {
+    margin: 0 auto;
+  }
+</style>
+<p><table id="baseSpaceContainer"><caption id="leafdiv" align="bottom"></caption>
+<tr><td>
+  <canvas id="baseSpace" width="{{ include.width }}" height="{{ include.height }}" />
+</td></tr>
+</table></p>
