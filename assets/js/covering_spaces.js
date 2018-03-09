@@ -99,4 +99,51 @@ function Coverings() {
     GenericCovering: GenericCovering,
     PuncturedPlane: PuncturedPlane
   };
+
+  var DoublyPuncturedPlane = Object.create(GenericCovering);
+  DoublyPuncturedPlane.init = function(x1, x2, y) {
+    this.px2 = x2; this.px1 = x1; this.py = y;
+    this.reduce = function(L) {
+      reducables = ['aA', 'Aa', 'Bb', 'bB', 'cC', 'Cc'];
+      for (i=0; i < length(reducables); i++) {
+        splitL = L.split(reducables[i]);
+        if(length(splitL) > 1) { return this.reduce(splitL.join('')); }
+      }
+      return L;
+    };
+  };
+  DoublyPuncturedPlane.fundDomain = function(a) {
+    return a[1] - this.py > 0 ? 'A' : '';
+  };
+  DoublyPuncturedPlane.trivial = {};
+  DoublyPuncturedPlane.lift = function(a, b) {
+    var pa = [a[0] - this.px, a[1] - this.py],
+        pb = [b[0] - this.px, b[1] - this.py];
+    if (pa[1]*pb[1] > 0) {
+      return '';
+    } else {
+      return pa[0]*pb[1] > pa[1]*pb[0] ? 1 : -1;
+    }
+  };
+  DoublyPuncturedPlane.compose = function(x, y) {
+    return this.reduce(x.concat(y));
+  };
+  DoublyPuncturedPlane.action = function(m, x) {
+    return this.compose(m,x);
+  };
+  DoublyPuncturedPlane.visibleFrom = function(m) {
+    l = length(m)
+    if(l==0 || m[l-1] in ['a','b','c']) {
+      possibleSteps = ['A','B','C'];
+    } else { possibleSteps = ['a', 'b', 'c'] }
+    function incr_m_by(step) { return this.action(m, step); }
+    return possibleSteps.map(incr_m_by);
+  }
+  DoublyPuncturedPlane.valence = 3;
+
+  return {
+    GenericCovering: GenericCovering,
+    PuncturedPlane: PuncturedPlane,
+    DoublyPuncturedPlane: DoublyPuncturedPlane
+  };
 }
