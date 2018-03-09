@@ -117,12 +117,20 @@ function Coverings() {
   };
   DoublyPuncturedPlane.trivial = {};
   DoublyPuncturedPlane.lift = function(a, b) {
-    var pa = [a[0] - this.px, a[1] - this.py],
-        pb = [b[0] - this.px, b[1] - this.py];
-    if (pa[1]*pb[1] > 0) {
-      return '';
+    var t, x_ic;
+    if (b[1] - a[1] == 0) { return ''; }
+    t = (y[1] - a[1]) / (b[1] - a[1]);
+    if (t < 0 || t > 1) { return ''; }  // Potential problem if t = 0 or 1
+    if (t == 0 || t == 1) {
+      console.log("Warning: Problem with points lying on boundary.");
+    }
+    x_ic = a[0] + t * (b[0] - a[0]);
+    if (x_ic < this.px1) {
+      return b[1] < a[1] ? 'a' : 'A';
+    } else if (x_ic < this.px2) {
+      return b[1] < a[1] ? 'b' : 'B';
     } else {
-      return pa[0]*pb[1] > pa[1]*pb[0] ? 1 : -1;
+      return b[1] < a[1] ? 'c' : 'C';
     }
   };
   DoublyPuncturedPlane.compose = function(x, y) {
