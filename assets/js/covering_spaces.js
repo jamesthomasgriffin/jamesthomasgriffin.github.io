@@ -6,7 +6,7 @@ function Coverings() {
     // action and visibleFrom methods
     liftAlongPath: function(P) {
       total = this.trivial();
-      for(i=0; i < P.length-1; i++) {
+      for(i=0; i < P.len-1; i++) {
         total = this.compose(total, this.lift(P[i],P[i+1]));
       }
       return total;
@@ -95,19 +95,15 @@ function Coverings() {
   }
   PuncturedPlane.valence = 2;
 
-  return {
-    GenericCovering: GenericCovering,
-    PuncturedPlane: PuncturedPlane
-  };
-
   var DoublyPuncturedPlane = Object.create(GenericCovering);
+
   DoublyPuncturedPlane.init = function(x1, x2, y) {
     this.px2 = x2; this.px1 = x1; this.py = y;
     this.reduce = function(L) {
-      reducables = ['aA', 'Aa', 'Bb', 'bB', 'cC', 'Cc'];
-      for (i=0; i < length(reducables); i++) {
-        splitL = L.split(reducables[i]);
-        if(length(splitL) > 1) { return this.reduce(splitL.join('')); }
+      var reducables = ['aA', 'Aa', 'Bb', 'bB', 'cC', 'Cc'];
+      for (let i=0; i < reducables.length; i++) {
+        var splitL = L.split(reducables[i]);
+        if(splitL.length > 1) { return this.reduce(splitL.join('')); }
       }
       return L;
     };
@@ -119,7 +115,7 @@ function Coverings() {
   DoublyPuncturedPlane.lift = function(a, b) {
     var t, x_ic;
     if (b[1] - a[1] == 0) { return ''; }
-    t = (y[1] - a[1]) / (b[1] - a[1]);
+    t = (this.py - a[1]) / (b[1] - a[1]);
     if (t < 0 || t > 1) { return ''; }  // Potential problem if t = 0 or 1
     if (t == 0 || t == 1) {
       console.log("Warning: Problem with points lying on boundary.");
@@ -140,7 +136,7 @@ function Coverings() {
     return this.compose(m,x);
   };
   DoublyPuncturedPlane.visibleFrom = function(m) {
-    l = length(m)
+    l = m.length
     if(l==0 || m[l-1] in ['a','b','c']) {
       possibleSteps = ['A','B','C'];
     } else { possibleSteps = ['a', 'b', 'c'] }

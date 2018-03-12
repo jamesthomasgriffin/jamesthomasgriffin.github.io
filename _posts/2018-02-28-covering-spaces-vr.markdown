@@ -43,12 +43,12 @@ In mathematics we call \\(\mathcal{V}\\) the *covering* space and \\(\mathcal{R}
 
 ### An example
 
-Let's consider an example, we will let \\(\mathcal{R}\\) be a circle minus the point in the center.
+Let's consider an example, we will let \\(\mathcal{R}\\) be a circle minus the point in the centre.
 In polar coordinates a point can be represented by a pair \\((r, \theta)\\), where \\(0 < r \leq 1\\) and \\(0\leq \theta < 2\pi\\).  The virtual world in this case will be the points \\((r,\theta)\\), with \\(0<r\leq 1\\) as before, but where \\(\theta\\) is any real number.  The map \\(\varphi\\) sends \\(r\\) to \\(r\\) and \\(\theta\\) to the remainder of \\(\theta\\) divided by \\(2\pi\\).
 
 {% include image_source.html url="/assets/spiral_staircase.jpg" description="A spiral staircase - " srcurl="https://commons.wikimedia.org/wiki/File:Spiral_staircase_in_Haldon_Belvedere.jpg" srcdesc="Image by Nilfanion - Wikimedia Commons" %}
 
-As the participant moves around in the real world space we can keep track of the angle she makes with the center point, as she winds around the center the angle can increase beyond 2&pi;.  This means that although the room is finite, the virtual space could be arbitrarily large.
+As the participant moves around in the real world space we can keep track of the angle she makes with the centre point, as she winds around the centre the angle can increase beyond 2&pi;.  This means that although the room is finite, the virtual space could be arbitrarily large.
 
 What would this look like in virtual reality?  Well suppose our virtual world consists of a single room with a pillar in the middle, this is much like \\(\mathcal{R}\\) above but with an added z-dimension.  Looking left round the pillar we would see a different point than if we looked to the right round the pillar.
 
@@ -64,7 +64,7 @@ is the plane that we are all used to, however in its implementation there's real
 
 ### Representions of covering spaces
 
-The example given in terms of polar coordinates is a good example of a covering space but most are not as simple to describe.  To understand a general technique for describing points of the configuration space we need to understand the covering map better.
+The example given in terms of polar coordinates is a good example of a covering space but most are not as simple to describe.  To understand a general technique for describing points of the covering space we need to understand the covering map better.
 
 A point in the covering space \\(q\in \mathcal{V}\\) can be described as a pair \\((p, l)\\) where \\(p = \varphi(q) \in \mathcal{R}\\) is a point in the base space, and \\(l\\) is a label which describes which point \\(q\\) is in the preimage
 
@@ -72,14 +72,27 @@ $$\varphi^{-1}(q) = \{s \in \mathcal{V} \mid \varphi(s) = q\}.$$
 
 Now the challenge is to understand the set of labels for a given point \\(p\\) and then given a (typically short) path \\(\gamma\\) from \\(p\\) to \\(p'\\) inside \\(\mathcal{R}\\), understand how to change the label.
 
-Let's look at an example, we will consider a square minus a point.  For each point \\(p\\) we will have the set of labels just equal to the set of whole numbers.
-So a point in the virtual space is represented by a pair \\((p, n)\\) where \\(p\in \mathcal{R}\\) is a point in the square (and not the centre point), and \\(n\\) is an integer.
-Now draw a line from the centre point to an outer edge, and call this line \\(L\\).  If a short path &gamma; joining \\(p\\) and \\(p'\\) does not cross \\(L\\) then moving along this path will not change the label.
-So the lifted path joins \\((p, n)\\) to \\((p', n)\\).
-However if the path passes through the line \\(L\\) in an anti-clockwise direction then increment the label by 1.  If it passes through \\(L\\) in a clockwise direction then increment it by minus 1.
+Let's look at an example, we will consider a square minus a point at its centre.  
+We will divide the square into two halves, top and bottom.  To fix a convention we will say that points level with the centre point are in the top half.
+For each point \\(p\\) in the top half we will have the set of labels equal to the set of odd integers.
+For each point \\(p\\) in the bottom half we will have the set of labels equal to the set of even integers.
+So a point in the virtual space is represented by a pair \\((p, n)\\) where \\(p\in \mathcal{R}\\) is a point in the square (and not the centre point), and \\(n\\) is an integer, which can be either odd or even depending on whether the point is in the top or bottom half.
 
-{% include mouse_tracker.html width="400" height="400" %}
+Now we must describe how the label changes as we move within the square.
+Suppose we start at a point \\((p_1,n)\\) and follow a direct path from \\(p_1\\) to \\(p_2\\).
+If both points are in the same half of the square then the label does not change and we find ourselves at \\((p_2, n)\\).
+However if the points are in different halves then the label must change (as the parity of the labels must be different).
+So we change the label to \\((p_2, n+1)\\) if in going from \\(p_1\\) to \\(p_2\\) we travel anti-clockwise, or to \\((p_2,n-1)\\) if this is a clockwise movement.
+
+//{% include mouse_tracker.html width="400" height="400" %}
+
+For more complicated covering spaces more complicated sets of labels are required, however a similar technique of cutting the space up into pieces and then describing how the labels change as we move along straight lines between them applies.
+
+{% include mouse_tracker2.html width="400" height="400" %}
 
 ### The geometry of covering spaces
 
-The path lifting property means that the local geometry of a covering space is identical to the local geometry of the base space, so there is no new local geometry.  In the context of virtual worlds we want to know how to render the virtual world, so we are interested in how light rays travel, i.e. in the geodesics.  By the path lifting property the geodesics (when they exist) are lifts of geodesics in the base space.  And since the real world has a Euclidean geometry these are just straight lines.
+The path lifting property means that the local geometry of a covering space is identical to the local geometry of the base space, so there is no new local geometry.
+Since we describe the real world in terms of vectors this means that we can describe the points and velocities in the configuration space in terms of vectors in precisely the same way, the only difference is that now we must track the changes in the labels as well.
+In the context of virtual worlds we want to know how to render the virtual world, so we are interested in how light rays travel, i.e. in the geodesics.
+By the path lifting property the geodesics (when they exist) are lifts of geodesics in the base space.  And since the real world has a Euclidean geometry these are just straight lines.
